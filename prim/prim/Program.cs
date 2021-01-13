@@ -7,29 +7,53 @@ namespace prim
         static void Main(string[] args)
         {
             Console.WriteLine("How many prime numbers would you like to see?");
-            int n = int.Parse(Console.ReadLine());
-            MyMethod(n);
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" ");
+            PrimeNum(n);
             Console.ReadLine();
         }
 
-        static void MyMethod(int n)
+        static bool PrimeTest(double test)
         {
-            int x= 0;
-            int i;
-            for (i=2; x<n; i++)
+            if (test == 1)
             {
-                if (i == 2 || i == 3 || i == 5)
+                return false;
+            }
+
+            if (((test / 2) % 1 == 0) && test != 2)
+            {
+                return false;
+            }
+
+            double root = Math.Sqrt(test);
+            int interval = Convert.ToInt32(Math.Floor(root));
+
+            for (int i = 3; i <= interval; i++)
+            {
+                if ((test / i) % 1 == 0)
                 {
-                    Console.WriteLine(i);
-                    x++;
-                }
-                if (i % 2 != 0 && i % 3 !=0 && i % 5 != 0) 
-                {
-                    Console.WriteLine(i);
-                    x++;
+                    return false;
                 }
             }
+
+            return true;
+        }
+
+        static void PrimeNum(int n)
+        {
+            int i = 1;
+            int count = 0;
+
+            do
+            {
+                if (PrimeTest(i))
+                {
+                    Console.WriteLine(i);
+                    count++;
+                }
+
+                i ++;
+            } while (count < n);
         }
     }
-
 }
